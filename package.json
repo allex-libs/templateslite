@@ -1,0 +1,25 @@
+{
+  "name": "allex_templateslitelib",
+  "version": "1.0.0",
+  "description": "AllexJS lib for easy and simple templatization",
+  "main": "index.js",
+  "scripts": {
+    "test": "allex-mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allex-libs/templateslite.git"
+  },
+  "keywords": [
+    "ecosystem:AllexJS",
+    "templates",
+    "lite",
+    "lib"
+  ],
+  "author": "Andrija Petrovic <andrija.hers@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/allex-libs/templateslite/issues"
+  },
+  "homepage": "https://github.com/allex-libs/templateslite#readme"
+}
