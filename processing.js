@@ -1,4 +1,4 @@
-function createTemplating (execlib) {
+function createProcessing (execlib, misc) {
   'use strict';
 
   var lib = execlib.lib;
@@ -28,22 +28,16 @@ function createTemplating (execlib) {
     return doReplacements(str, repls);
   }
 
-  function arryforsure (thingy) {
-    if (!lib.isVal(thingy)) {
-      return [];
-    }
-    if (lib.isArray(thingy)) {
-      return thingy;
-    }
-    return [thingy];
-  }
-  function concatany (thingy1, thingy2) {
-    return arryforsure(thingy1).concat(arryforsure(thingy2));
-  }
   function process (templatedesc) {
     var template;
     if (lib.isString(templatedesc)) {
       return templatedesc;
+    }
+    if (lib.isNumber(templatedesc)) {
+      return templatedesc+'';
+    }
+    if (lib.isBoolean(templatedesc)) {
+      return templatedesc+'';
     }
     if (!templatedesc) {
       return null;
@@ -53,7 +47,13 @@ function createTemplating (execlib) {
       if (!lib.isString(template)) {
         throw new Error ('Template descriptor\'s template has to be a string or a templatedescriptor');
       }
-      return replace(template, concatany(templatedesc.prereplacements, templatedesc.replacements));
+      return replace(template, misc.concatany(templatedesc.prereplacements, templatedesc.replacements));
+    }
+    if (templatedesc.multi && lib.isArray(templatedesc.multi)) {
+      return templatedesc.multi.map(process).join(templatedesc.separator);
+    }
+    if (lib.isArray(templatedesc)) {
+      return process({separator: '\n', multi:templatedesc});
     }
     console.error(templatedesc);
     throw new Error ('Template descriptor not recognized');
@@ -63,4 +63,4 @@ function createTemplating (execlib) {
   return process;
 }
 
-module.exports = createTemplating;
+module.exports = createProcessing;
